@@ -20,7 +20,7 @@ func main() {
 	}
 }
 
-var rx = regexp.MustCompile(`([^:]*):(\d+)?`)
+var rx = regexp.MustCompile(`([^:]*)(?::(\d+))?`)
 
 func remoteEdit(s string) error {
 	m := rx.FindStringSubmatch(s)
@@ -38,7 +38,7 @@ func remoteEdit(s string) error {
 	}
 
 	var num int
-	if len(m) >= 3 {
+	if len(m) >= 3 && m[2] != "" {
 		n, err := strconv.ParseInt(m[2], 10, 64)
 		if err != nil {
 			return fmt.Errorf("syntax problem on line num: %w", err)
